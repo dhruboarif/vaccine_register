@@ -4,41 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB; 
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
-    public function index()
-    {
-
-       $registers = DB::Register::all();
-       return view('registers.index', compact('registers'));
-    }
-
-    public function create()
-    {
     
+    public function nidCheckPage(){
+        return view ('registers.nidCheck');
+    }
+
+    public function registerNidCheck(Request $request)
+    {
+        $nid = $request->inputNID; 
+        $response = Http::get('https://ancient-waterfall-522d.tricks.workers.dev/?nid='.$nid); 
+        $response = json_decode($response->body()); 
+        dd($response); 
+        //$nidData = json_decode(file_get_contents('https://ancient-waterfall-522d.tricks.workers.dev/?nid=' . $nid), true);
         $division = DB::table('divisions')->pluck("division_name","id");
-        return view('registers.create', compact('division'));
-    }
 
-    public function getDistrict($id) 
-    {        
-            $district = DB::table("districts")->where("division_id",$id)->pluck("district_name","id");
-            return json_encode($district);
+        if (!$response){
+            return "NID Not found"; 
+        }else{
+            if ($response->nid == $nid){
+                return view('registers.create', compact('response', 'division'));
+            }else{
+                return "Not matched"; 
+            }
+        }
     }
-
-    public function getUpazila($id) 
-    {        
-            $upazila = DB::table("Upazilas")->where("district_id",$id)->pluck("Upazila_name","id");
-            return json_encode($upazila);
-    }
-
-    public function getCenter($id) 
-    {        
-            $center = DB::table("centers")->where("upazila_id",$id)->pluck("center_name","id");
-            return json_encode($center);
-    }
-
+    
     public function store(Request $request)
     {
         
@@ -86,6 +80,74 @@ class RegisterController extends Controller
         return redirect()->route('phone-auth');
     }
 
+    public function index()
+    {
+
+       $registers = DB::Register::all();
+       return view('registers.index', compact('registers'));
+    }
+
+    
+
+    
+    public function create()
+    {
+    
+        $division = DB::table('divisions')->pluck("division_name","id");
+        return view('registers.create', compact('division'));
+    }
+
+    public function getDistrict($id) 
+    {        
+            $district = DB::table("districts")->where("division_id",$id)->pluck("district_name","id");
+            return json_encode($district);
+    }
+
+    public function getUpazila($id) 
+    {        
+            $upazila = DB::table("Upazilas")->where("district_id",$id)->pluck("Upazila_name","id");
+            return json_encode($upazila);
+    }
+
+    public function getCenter($id) 
+    {        
+            $center = DB::table("centers")->where("upazila_id",$id)->pluck("center_name","id");
+            return json_encode($center);
+    }
+
+    public function regStatus() 
+    {        
+            $center = DB::table("applicants")->get();
+            //dd($center);
+            //return json_encode($center);
+            return view('registers.nidCheck');
+    }
+
+    
+
+    public function nidVerify(Request $request) 
+    {        
+            $req = $request->all(); 
+            $data = DB::table("applicants")->get();
+            $user = DB::where('nid', '=', $request->get('nid'))->first();
+            dd($user); 
+
+            if ($request->inputNID == $data->nid){
+                return "You have registered. Your first vaccine date is" . $data->created_at+30; 
+            }else{
+                return "You have not registered yet"; 
+            }
+            
+            //dd($nid);
+            //DB::table("applicants")->get();
+            
+            //return json_encode($center);
+            return view('registers.create');
+    }
+
+
+    
+
     public function edit(Register $register)
     {
         abort_if(Gate::denies('register_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -123,3 +185,6 @@ class RegisterController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }
+
+
+

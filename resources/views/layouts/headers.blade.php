@@ -59,8 +59,8 @@
                         <nav class="site-navbar">
                            <ul>
                               <li><a class="active" href="{{url('')}}">Home</a></li>
-                              <li><a href="{{route('registers.create')}}">Register</a></li>
-                              <li><a href="action.html">take action</a></li>
+                              <li><a href="{{route('nidCheck')}}">Register</a></li>
+                              <li><a href="{{route('regStatus')}}">Vaccine Status</a></li>
                               <li><a href="index.html" class="logo_midle">covido</a></li>
                               <li><a href="news.html">news</a></li>
                               <li><a href="doctores.html">doctores</a></li>

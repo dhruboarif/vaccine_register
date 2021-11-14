@@ -12,6 +12,7 @@ class CenterController extends Controller
         $countries = DB::table('division')->pluck("name","id");
         return view('dropdown',compact('countries'));
     }
+    
 }
 
 

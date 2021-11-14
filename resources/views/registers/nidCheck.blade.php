@@ -12,81 +12,12 @@
                     <h2>Register for Covid Vaccine </h2>
                     <p>English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for
                     </p>
-                    <form method="POST" action="{{ route('registers.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('registerNew') }}" enctype="multipart/form-data">
                         @csrf
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
+                        
                         <div class="form-group">
                             <label for="inputNID">NID</label>
-                            <input type="text" name="inputNID" value="{{ $response->nid }}" readonly class="form-control" id="inputNID" placeholder="19914624902302312">
-                        </div> 
-
-                        <div class="form-group">
-                            <label for="inputName">Name</label>
-                            <input type="text" name="inputName" value="{{ $response->name }}" readonly class="form-control" id="inputName" placeholder="Ariful Islam">
-                        </div>
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" name="dob" value="{{ $response->dob }}" readonly class="form-control" id="dob" placeholder="19914624902302312">
-                        </div>
-                        <div class="form-group">
-                            <label for="address"><Address></Address></label>
-                            <input type="text" name="address" value="{{ $response->address }}" readonly class="form-control" id="address" placeholder="19914624902302312">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contact">Contact No</label>
-                            <input type="text" name="contact" value="{{ old('contact')}}" class="form-control" id="contact" placeholder="01824825210">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" name="email" value="{{ old('email')}}" class="form-control" id="inputEmail4" placeholder="Email">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" name="password" value="{{ old('password')}}" minlength="8" class="form-control" id="inputPassword4" placeholder="Password">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-                                <label for="division">Select Division:</label>
-                                <select name="division" value="{{ old('division')}}" class="form-control" style="width:250px">
-                                    <option value="">--- Select Division ---</option>
-                                    @foreach ($division as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="district">Select District:</label>
-                                <select name="district" class="form-control" style="width:250px">
-                                    <option>--District--</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="upazila">Select Upazila:</label>
-                                <select name="upazila" class="form-control" style="width:250px">
-                                    <option>--Upazila--</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="center">Select Center:</label>
-                                <select name="center" class="form-control" style="width:250px">
-                                    <option>--Center--</option>
-                                </select>
-                            </div>
-
+                            <input type="text" name="inputNID" value="{{ old('inputNID')}}" class="form-control" id="inputNID" placeholder="19914624902302312">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -95,7 +26,7 @@
             </div>
             <div class="col-md-5">
                 <div class="about_img text_align_center">
-                    <figure><img src="{{asset('images/about.png')}}" alt="#" /></figure>
+               <figure><img src="{{asset('images/about.png')}}" alt="#" /></figure>
                 </div>
             </div>
 

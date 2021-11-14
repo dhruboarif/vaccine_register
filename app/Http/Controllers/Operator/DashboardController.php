@@ -12,19 +12,7 @@ class DashboardController extends Controller
         return view('operator.dashboard'); 
     }
     
-    public function redirectTo()
-    {
-        if(Auth::user()->role_id == '2') //1 = Admin Login
-        {
-            return 'dashboard';
-        }
-        elseif(Auth::user()->role_id == '0') // Normal or Default User Login
-        {
-            return '/';
-        }
-    }
-
-    // Use ANY ONE ===> the above code OR below code
+        // Use ANY ONE ===> the above code OR below code
   
     //Second method to Redirect with Message ("STATUS") eg: welcome to dashboard
     protected function authenticated()

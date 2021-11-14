@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PhoneAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController; 
+use App\Http\Controllers\CenterController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::get('/', function () {
 
 
 //Route::delete('registers/destroy', 'RegisterController@massDestroy')->name('registers.massDestroy');
+Route::get('nidcheck', [RegisterController::class, 'nidCheckPage'])->name('nidCheck');
+Route::post('registers/reg', [RegisterController::class, 'registerNidCheck'])->name('registerNew');
+
 Route::resource('/registers', RegisterController::class);
 Route::get('registers/division/district/{id}', [RegisterController::class, 'getDistrict']);
 Route::get('registers/district/upazila/{id}', [RegisterController::class, 'getUpazila']);
@@ -49,3 +53,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('phone-auth', [PhoneAuthController::class, 'index'])->name('phone-auth');
+Route::get('regStatus', [RegisterController::class, 'regStatus'])->name('regStatus');
+//Route::post('nidVerify', [RegisterController::class, 'nidVerify'])->name('nidVerify');
+
+Route::get('salary', [CenterController::class, 'calculateTotalSalary'])->name('calculateTotalSalary');
+

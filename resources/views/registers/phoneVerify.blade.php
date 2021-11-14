@@ -18,11 +18,11 @@
 <section class="validOTPForm">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card">
+            <div class="col-md-6 mx-auto m-5">
+                <div class="card m-5">
                     <div class="card-header bg-dark text-white">
-                        <h4 class="text-center">
-                            Mobile Number verification
+                        <h4 class="text-center">  
+                            Phone Number verification
                         </h4>
                     </div>
 
