@@ -1,7 +1,7 @@
 @extends('layouts.home');
 @section('content')
 
-<h1>Register for Vaccine</h1>
+<h1>Vaccine Status Check </h1>
 
 <!-- about -->
 <div class="about m-5">
@@ -10,9 +10,10 @@
             <div class="col-md-7">
                 <div class="titlepage text_align_left">
                     <h2>Vaccine Status Check </h2>
+                   
                     <p>English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for
                     </p>
-                    <form method="POST" action="{{ route('nidVerify') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('vacStatusCheck') }}" enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -28,7 +29,7 @@
                             <label for="inputNID">NID</label>
                             <input type="text" name="inputNID" value="{{ old('inputNID')}}" class="form-control" id="inputNID" placeholder="19914624902302312">
                         </div>
-
+                       
                         
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

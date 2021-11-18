@@ -53,7 +53,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('phone-auth', [PhoneAuthController::class, 'index'])->name('phone-auth');
-Route::get('regStatus', [RegisterController::class, 'regStatus'])->name('regStatus');
+Route::get('vacStatus', [RegisterController::class, 'vacStatus'])->name('vacStatus');
+Route::post('vacStatusCheck', [RegisterController::class, 'vacStatusCheck'])->name('vacStatusCheck');
 //Route::post('nidVerify', [RegisterController::class, 'nidVerify'])->name('nidVerify');
 
 Route::get('salary', [CenterController::class, 'calculateTotalSalary'])->name('calculateTotalSalary');

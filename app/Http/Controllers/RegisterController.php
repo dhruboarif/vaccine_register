@@ -18,7 +18,7 @@ class RegisterController extends Controller
         $nid = $request->inputNID; 
         $response = Http::get('https://ancient-waterfall-522d.tricks.workers.dev/?nid='.$nid); 
         $response = json_decode($response->body()); 
-        dd($response); 
+        //dd($response); 
         //$nidData = json_decode(file_get_contents('https://ancient-waterfall-522d.tricks.workers.dev/?nid=' . $nid), true);
         $division = DB::table('divisions')->pluck("division_name","id");
 
@@ -73,7 +73,9 @@ class RegisterController extends Controller
                     'divisions' => $division, 
                     'districts' => $district,
                     'upazilas' => $upazila, 
-                    'center_id' => $center_id
+                    'center_id' => $center_id,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]
             );
 
@@ -86,10 +88,7 @@ class RegisterController extends Controller
        $registers = DB::Register::all();
        return view('registers.index', compact('registers'));
     }
-
-    
-
-    
+     
     public function create()
     {
     
@@ -145,7 +144,27 @@ class RegisterController extends Controller
             return view('registers.create');
     }
 
+    public function vacStatus()
+    {
 
+       return view('registers.vacStatus');
+    }
+
+    public function vacStatusCheck(Request $request)
+    {
+        $nid = $request->inputNID;  
+        $nidData = DB::table('applicants')->where('nid', $nid)->first(); 
+        //dd($nidData);
+       if($nidData === 'null'){
+        return "Not found";
+       }else{
+            $firstDose = $nidData->created_at;
+            return "You have registered " . $firstDose; 
+       }
+        
+        
+        return view('registers.vacStatus');
+    }
     
 
     public function edit(Register $register)
