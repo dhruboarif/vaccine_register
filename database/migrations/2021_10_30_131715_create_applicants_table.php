@@ -21,9 +21,6 @@ class CreateApplicantsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->bcrypt('password');
-            $table->string('divisions')->nullable();
-            $table->string('districts')->nullable();
-            $table->string('upazilas')->nullable();
             $table->unsignedBigInteger('center_id');
             $table->foreign('center_id')->references('id')->on('centers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

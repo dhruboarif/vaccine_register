@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB; 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash; 
 
 class RegisterController extends Controller
 {
@@ -56,10 +57,7 @@ class RegisterController extends Controller
             $bday = $request->dob; 
             $email = $request->email; 
             $phone = $request->contact; 
-            $password = $request->password; 
-            $division = $request->division; 
-            $district = $request->district; 
-            $upazila = $request->upazila; 
+            $password = Hash::make($request->password); 
             $center_id = $request->center; 
 
             DB::table('applicants')->insert(
@@ -70,9 +68,6 @@ class RegisterController extends Controller
                     'email' => $email,
                     'phone' => $phone, 
                     'password' => $password,
-                    'divisions' => $division, 
-                    'districts' => $district,
-                    'upazilas' => $upazila, 
                     'center_id' => $center_id,
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
